@@ -1,11 +1,20 @@
+import requests
+
+def get_exchange_rate(base, target):
+    url = f"https://api.exchangerate-api.com/v4/latest/{base}"
+    response = requests.get(url)
+    data = response.json()
+
+    return data["rates"].get(target)
+
 def main():
     print("💱 Currency Converter")
     base = input("Enter base currency (e.g., USD): ").upper()
     target = input("Enter target currency (e.g., EUR): ").upper()
     amount = float(input("Enter amount: "))
 
-    # Conversion logic will be added later
-    print(f"You entered {amount} {base}, to be converted into {target}.")
+    rate = get_exchange_rate(base, target)
+    print("Exchange rate fetched:", rate)
 
 if __name__ == "__main__":
     main()
