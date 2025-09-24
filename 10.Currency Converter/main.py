@@ -4,7 +4,6 @@ def get_exchange_rate(base, target):
     url = f"https://api.exchangerate-api.com/v4/latest/{base}"
     response = requests.get(url)
     data = response.json()
-
     return data["rates"].get(target)
 
 def main():
@@ -14,7 +13,11 @@ def main():
     amount = float(input("Enter amount: "))
 
     rate = get_exchange_rate(base, target)
-    print("Exchange rate fetched:", rate)
+    if rate:
+        converted = amount * rate
+        print(f"\n✅ {amount} {base} = {converted:.2f} {target}")
+    else:
+        print("❌ Invalid currency code.")
 
 if __name__ == "__main__":
     main()
